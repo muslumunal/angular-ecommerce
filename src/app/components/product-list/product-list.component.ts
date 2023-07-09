@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../../services/product.service";
 import {Product} from "../../common/product";
 import {ActivatedRoute} from "@angular/router";
+import {CartItem} from "../../common/cart-item";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-product-list',
@@ -22,6 +24,7 @@ export class ProductListComponent implements OnInit {
   previousKeyword: string = "";
 
   constructor(private productService: ProductService,
+              private cartService: CartService,
               private route: ActivatedRoute) {
   }
 
@@ -49,7 +52,7 @@ export class ProductListComponent implements OnInit {
 
     this.previousKeyword = theKeyword;
     //search for the products using keyword
-    this.productService.getSearchProductsPaginate(this.thePageNumber-1,this.thePageSize,theKeyword).subscribe(
+    this.productService.getSearchProductsPaginate(this.thePageNumber - 1, this.thePageSize, theKeyword).subscribe(
       this.processResult()
     );
 
@@ -97,7 +100,7 @@ export class ProductListComponent implements OnInit {
     this.listProducts();
   }
 
-  processResult(){
+  processResult() {
     return (data: any) => {
       this.products = data._embedded.products;
       this.thePageNumber = data.page.number + 1;
@@ -106,7 +109,9 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  addToCard(theProduct: Product){
+  addToCard(theProduct: Product) {
     console.log(`adding to cart: ${theProduct.name} , ${theProduct.unitPrice}`)
+    const theCartItem = new CartItem(theProduct);
+    this.cartService.addToCart(theCartItem);
   }
 }
