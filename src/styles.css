@@ -514,7 +514,7 @@ input.au-input.au-input-xl{
   background:#fff
 }
 .main-content.page-m{
-  padding:10% 15%!important
+  padding:10% 30% 10% 5%;
 }
 
 /*
@@ -622,12 +622,12 @@ input.au-input.au-input-xl{
   cursor:pointer
 }
 .au-checkmark{
-  position:absolute;
+
   top:0;
   left:0;
   height:22px;
   width:22px;
-  background-color:#fff!important;
+
   border:2px solid #e5e5e5;
   -webkit-border-radius:2px;
   -moz-border-radius:2px;
